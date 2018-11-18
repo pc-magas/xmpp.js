@@ -3,7 +3,7 @@
 const {Socket} = require('net')
 const Connection = require('@xmpp/connection')
 const {Parser} = require('@xmpp/xml')
-const url = require('url')
+const {URL} = require('url')
 
 const NS_STREAM = 'http://etherx.jabber.org/streams'
 
@@ -13,7 +13,7 @@ const NS_STREAM = 'http://etherx.jabber.org/streams'
 
 class ConnectionTCP extends Connection {
   socketParameters(service) {
-    const {port, hostname, protocol} = url.parse(service)
+    const {port, hostname, protocol} = new URL(service)
     return protocol === 'xmpp:'
       ? {port: port ? Number(port) : null, host: hostname}
       : undefined
